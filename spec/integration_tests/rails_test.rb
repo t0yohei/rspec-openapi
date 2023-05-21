@@ -103,7 +103,7 @@ end
 class TablesUpdateTest < ActionDispatch::IntegrationTest
   openapi!
 
-  test 'returns a table with array' do
+    test 'returns a table with array' do
     png = 'iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAAAAADhZOFXAAAADklEQVQIW2P4DwUMlDEA98A/wTjP
     QBoAAAAASUVORK5CYII='.unpack1('m')
     File.binwrite('test.png', png)
@@ -111,6 +111,20 @@ class TablesUpdateTest < ActionDispatch::IntegrationTest
     patch '/tables/1', headers: { authorization: 'k0kubun' }, params: { images: [image, image] }
     assert_response 200
   end
+
+
+  test 'returns a table with nested' do
+    png = 'iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAAAAADhZOFXAAAADklEQVQIW2P4DwUMlDEA98A/wTjP
+    QBoAAAAASUVORK5CYII='.unpack1('m')
+    File.binwrite('test.png', png)
+    image = Rack::Test::UploadedFile.new('test.png', 'image/png')
+    patch '/tables/1', headers: { authorization: 'k0kubun' }, params: {
+      nested_image: { image: image, caption: 'Some caption' },
+    }
+    assert_response 200
+  end
+
+
 end
 
 class TablesDestroyTest < ActionDispatch::IntegrationTest

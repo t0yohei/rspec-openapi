@@ -481,17 +481,34 @@
                       "type": "string",
                       "format": "binary"
                     }
+                  },
+                  "nested_image": {
+                    "type": "object",
+                    "properties": {
+                      "image": {
+                        "type": "string",
+                        "format": "binary"
+                      },
+                      "caption": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "image",
+                      "caption"
+                    ]
                   }
-                },
-                "required": [
-                  "images"
-                ]
+                }
               },
               "example": {
                 "images": [
                   "test.png",
                   "test.png"
-                ]
+                ],
+                "nested_image": {
+                  "image": "test.png",
+                  "caption": "Some caption"
+                }
               }
             }
           }
